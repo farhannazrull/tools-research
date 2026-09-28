@@ -1,47 +1,54 @@
-# tools-research — Boilerplate Astro Modular
+# tools-research: Boilerplate Astro Modular
 
-Boilerplate web statis pakai Astro. Navbar dan Footer ditulis **1x**, dipakai di semua halaman. Tidak perlu copy-paste HTML lagi.
+Repositori ini berisi boilerplate situs web statis yang dibangun dengan Astro. Komponen Navbar dan Footer ditulis satu kali dan digunakan kembali pada seluruh halaman, sehingga duplikasi kode HTML tidak diperlukan.
 
-## Struktur Folder
+## Struktur Direktori
 
 ```
 src/
   components/
-    Navbar.astro   # Logo "MyApp" + menu Home, About, Contact
-    Footer.astro   # Copyright + link sosmed
+    Navbar.astro      : Logo teks "MyApp" beserta menu navigasi Home, About, dan Contact
+    Footer.astro      : Informasi hak cipta beserta tautan media sosial
   layouts/
-    MainLayout.astro  # Kerangka <html> + <Navbar /> + <slot /> + <Footer />
+    MainLayout.astro  : Kerangka dokumen HTML yang memuat Navbar, slot konten, dan Footer
   pages/
-    index.astro    # Route "/"
-    about.astro    # Route "/about"
-public/            # File statis (gambar, favicon)
+    index.astro       : Halaman utama pada rute "/"
+    about.astro       : Halaman profil pada rute "/about"
+public/               : Direktori untuk berkas statis seperti gambar dan favicon
 ```
 
-## Cara Jalanin
+## Instalasi dan Menjalankan Proyek
+
+Instal seluruh dependensi:
 
 ```bash
 npm install
+```
+
+Menjalankan server pengembangan:
+
+```bash
 npm run dev
 ```
 
-Buka `http://localhost:4321` (home) dan `http://localhost:4321/about`.
+Akses aplikasi pada alamat `http://localhost:4321` untuk halaman utama dan `http://localhost:4321/about` untuk halaman profil.
 
-Build produksi:
+Membuat hasil build produksi:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Hasilnya keluar di `dist/`, siap upload ke Netlify / Vercel / GitHub Pages.
+Hasil build akan dihasilkan pada direktori `dist/` dan dapat diterbitkan melalui layanan seperti Netlify, Vercel, atau GitHub Pages.
 
-## Cara Pakai
+## Panduan Penggunaan
 
-**1. Ubah Navbar / Footer sekali, berlaku ke semua halaman.**
-Edit `src/components/Navbar.astro` atau `Footer.astro`, simpan, semua halaman otomatis ikut berubah karena semuanya dibungkus `MainLayout`.
+**1. Memperbarui Navbar atau Footer.**
+Perubahan pada berkas `src/components/Navbar.astro` atau `src/components/Footer.astro` akan diterapkan secara otomatis pada seluruh halaman, karena setiap halaman menggunakan `MainLayout` sebagai pembungkus.
 
-**2. Tambah halaman baru.**
-Bikin file baru di `src/pages/`, contoh `src/pages/contact.astro`:
+**2. Menambahkan halaman baru.**
+Buat berkas baru pada direktori `src/pages/`. Sebagai contoh, `src/pages/contact.astro`:
 
 ```astro
 ---
@@ -49,12 +56,12 @@ import MainLayout from '../layouts/MainLayout.astro';
 ---
 <MainLayout>
   <h1>Kontak</h1>
-  <p>Hubungi kami di sini.</p>
+  <p>Hubungi kami melalui halaman ini.</p>
 </MainLayout>
 ```
 
-File itu otomatis jadi route `/contact`. Tidak perlu nulis `<html>`, navbar, atau footer lagi.
+Berkas tersebut akan tersedia secara otomatis pada rute `/contact` tanpa perlu menulis ulang kerangka dokumen, Navbar, atau Footer.
 
-## Kenapa Modular?
+## Latar Belakang Arsitektur Modular
 
-Setiap file `.html` dulu (misal `home-1.html`, `home-2.html`) bawa salinan Navbar/Footer sendiri, jadi 1 perubahan = edit semua file. Di sini komponen di-`import` sekali dan dipakai ulang lewat `<slot />`, jadi 1 perubahan = edit 1 file.
+Pada pendekatan sebelumnya, setiap berkas HTML seperti `home-1.html` dan `home-2.html` memuat salinan Navbar dan Footer masing-masing, sehingga satu perubahan mengharuskan penyuntingan pada seluruh berkas. Pada pendekatan ini, komponen didefinisikan satu kali, diimpor sesuai kebutuhan, dan konten spesifik halaman disalurkan melalui elemen `slot`. Dengan demikian, satu perubahan hanya memerlukan penyuntingan pada satu berkas.
